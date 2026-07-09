@@ -2,7 +2,7 @@
 SCRIPT: clinica_medica
 OBJETIVO: Criar banco de dados, tabelas, inserir dados, e realizar consultas
 SGBD: PostgreSQL
-AUTORES: Jefferson Matheus Ferreira de Lima, Felipe Lima, Ryan Kauan Medeiros de Souza, Jose Viton dos Santos
+AUTORES: Jefferson Matheus Ferreira de Lima, Letícia Geovana Lopes dos Santos, Gabriel Fronco Montenegro, Iago Vinicius Ribeiro da Silva, Gabriel Araujo Maia da Silva
 */
 
 -- Criação do banco de dados (Descomente caso queira que o script crie o banco)
