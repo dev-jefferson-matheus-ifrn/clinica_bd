@@ -15,7 +15,7 @@ O principal objetivo do projeto é fornecer uma modelagem estrutural eficiente e
 
 ---
 
-## 🛠️ O Que Desenvolvemos
+## O Que Desenvolvemos
 
 Nossa equipe criou toda a estrutura relacional para a gestão de agendamentos médicos utilizando **PostgreSQL**. O banco de dados foi projetado para otimizar a rotina de armazenamento de uma clínica, garantindo:
 
@@ -25,7 +25,7 @@ Nossa equipe criou toda a estrutura relacional para a gestão de agendamentos m�
 
 ---
 
-## 🗄️ Por Que o Banco de Dados é Essencial
+## Por Que o Banco de Dados é Essencial
 
 A escolha do **PostgreSQL** como nosso Sistema de Gerenciamento de Banco de Dados (SGBD) foi fundamental para garantir o funcionamento do sistema cumprindo requisitos importantes, como:
 
@@ -35,7 +35,7 @@ A escolha do **PostgreSQL** como nosso Sistema de Gerenciamento de Banco de Dado
 
 ---
 
-## 💡 Tecnologias Escolhidas
+## Tecnologias Escolhidas
 
 * **Banco de Dados:** `PostgreSQL` - Escolhido por sua altíssima robustez, conformidade com padrões SQL e recursos avançados.
 * **Administração:** `pgAdmin 4` - Interface gráfica web completa e intuitiva para gerenciar o servidor Postgres.
@@ -43,43 +43,43 @@ A escolha do **PostgreSQL** como nosso Sistema de Gerenciamento de Banco de Dado
 
 ---
 
-## 🎯 Resultado
+## Resultado
 
 O resultado final é uma modelagem de banco de dados funcional e segura, que demonstra como a estruturação correta da informação pode simplificar processos complexos. O esquema atual oferece uma base robusta para o gerenciamento de agendamentos, pronta para ser integrada a futuras aplicações (APIs ou sistemas web).
 
-<br><br>
 
-# Como executar o projeto
 
-## 📋 Pré-requisitos
+## Como executar o projeto
+
+### 📋 Pré-requisitos
 
 Para executar este projeto, você precisará ter instalado em sua máquina:
-* [Git](https://git-scm.com/)
-* [Docker](https://www.docker.com/) e **Docker Compose**
+* [Git](https://git-scm.com/);
+* [Docker](https://www.docker.com/) e Docker Compose
 
 ---
 
-## 🚀 Como Executar
+### Como Executar
 
 Siga o passo a passo abaixo para rodar a infraestrutura do banco de dados.
 
-### 1. Clonar o Repositório
+#### 1. Clonar o Repositório
 
 ```bash
 git clone [https://github.com/dev-jefferson-matheus-ifrn/clinica_bd.git](https://github.com/dev-jefferson-matheus-ifrn/clinica_bd.git)
 cd clinica_bd
 ```
 
-### 2. Iniciar a Infraestrutura (Docker)
+#### 2. Iniciar a Infraestrutura (Docker)
 
 Na raiz do projeto (onde está o arquivo `docker-compose.yml`), execute o comando abaixo para iniciar os serviços do banco de dados (PostgreSQL) e do gerenciador (pgAdmin):
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 *(O parâmetro `-d` roda os containers em segundo plano)*
 
-### 3. Acessar o pgAdmin
+#### 3. Acessar o pgAdmin
 
 Com os containers rodando, abra o seu navegador e acesse a interface do pgAdmin:
 
@@ -87,7 +87,7 @@ Com os containers rodando, abra o seu navegador e acesse a interface do pgAdmin:
 * **Email Address:** `me@example.com`
 * **Password:** `1234567`
 
-### 4. Configurar a Conexão com o Servidor PostgreSQL
+#### 4. Configurar a Conexão com o Servidor PostgreSQL
 
 Como o pgAdmin está rodando dentro do Docker, ele se comunica com o banco através da rede interna dos containers. Para conectar, usaremos o IP direto do container do banco de dados. Siga os passos:
 
