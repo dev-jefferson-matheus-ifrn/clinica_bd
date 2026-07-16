@@ -1,41 +1,66 @@
-create or replace procedure sp_agendar_consulta(
-    p_id_paciente int,
-    p_id_horario int,
-    p_status_agendamento varchar(20) default 'confirmado'
+CREATE OR REPLACE PROCEDURE sp_agendar_consulta(
+    IN p_id_paciente INT,
+    IN p_id_horario INT,
+    IN p_status_agendamento VARCHAR(20) DEFAULT 'Confirmado'
 )
-language plpgsql
-as $$
-declare
-    v_status_horario varchar(12);
-    v_paciente_existe boolean;
-begin
-    select exist(select 1 from tb_paciente where id = p_id_paciente) into v_paciente_existe;
-    if not v_paciente_existe then
-    raise exception 'erro: paciente id não encontrado', p_id_paciente;
-end if;
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_status_horario VARCHAR(12);
+    v_paciente_existe BOOLEAN;
+BEGIN
+    -- Verifica se o paciente existe
+    SELECT EXISTS (
+        SELECT 1
+        FROM tb_pacientes
+        WHERE id = p_id_paciente
+    )
+    INTO v_paciente_existe;
 
-    select status_atendimento into v_status_horario
-    from tb_horarios
-    where id = p_id_horario;
+    IF NOT v_paciente_existe THEN
+        RAISE EXCEPTION 'Erro: paciente com ID % não encontrado.', p_id_paciente;
+    END IF;
 
-    if v_status_horario is null then
-        raise exception 'erro: horário com id não existe', p_id_horario
-    elsif v_status_horario <> 'disponivel' then
-        raise exception 'erro: o horário informado não está disponivel. status atual: %', v_status_horario;
-end if;
+    -- Obtém o status do horário
+    SELECT status_atendimento
+    INTO v_status_horario
+    FROM tb_horarios
+    WHERE id = p_id_horario;
 
-    insert into tb_agendamentos (id_paciente, id_horario, status_agendamentos)
-    values (p_id_paciente, p_id_horario, p_status_agendamento);
+    -- Verifica se o horário existe
+    IF v_status_horario IS NULL THEN
+        RAISE EXCEPTION 'Erro: horário com ID % não existe.', p_id_horario;
+    END IF;
 
-    update tb_horarios
-    set status_atendimento = 'ocupado'
-    where id = p_id_horario;
+    -- Verifica disponibilidade
+    IF LOWER(v_status_horario) <> 'disponível'
+       AND LOWER(v_status_horario) <> 'disponivel' THEN
+        RAISE EXCEPTION
+            'Erro: o horário informado não está disponível. Status atual: %',
+            v_status_horario;
+    END IF;
 
-    raise notice 'sucesso: falha ao processar o agendamento:',sqlerrm;
+    -- Cria o agendamento
+    INSERT INTO tb_agendamentos (
+        id_paciente,
+        id_horario,
+        status_agendamento
+    )
+    VALUES (
+        p_id_paciente,
+        p_id_horario,
+        p_status_agendamento
+    );
 
-exception
-    when others then
-        raise exception 'falha ao processar o agendamento:', sqlerrm;
-end;
+    -- Atualiza o horário
+    UPDATE tb_horarios
+    SET status_atendimento = 'Ocupado'
+    WHERE id = p_id_horario;
+
+    RAISE NOTICE 'Agendamento realizado com sucesso.';
+
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE EXCEPTION 'Falha ao processar o agendamento: %', SQLERRM;
+END;
 $$;
-
